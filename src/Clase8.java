@@ -11,7 +11,7 @@ public class Clase8 {
 
         System.out.println("El area del cuadrado es " + areaCuadrado);
         System.out.println("El area del triangulo es " + areaTriangulo);
-        System.out.println("La contraseña generada es "+ generarPassword());
+        System.out.println("La contraseña generada es "+ getRandomPassword());
     }
 
     //Hacer una función que calcule el área de un cuadrado. Al llamarla debe devolver el área del cuadrado.
@@ -27,8 +27,8 @@ public class Clase8 {
     //Crear una función que sea un generador de contraseñas. Al llamarla debe devolver una contraseña (por ejemplo,
     // puedes utilizar Math.random() para devolver un número aleatorio que podría ser una contraseña.
     private static @NotNull
-    String generarPassword() {
-        int num = (int)(Math.random()*100000);
-        return "P" + num;
+    String getRandomPassword() {
+        double num = Math.random()*100000;
+        return "P" + Math.round(num);
     }
 }
