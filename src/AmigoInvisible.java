@@ -1,10 +1,18 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class AmigoInvisible {
+
     public static void main(String[] args) {
+        jugarAmigoInvisible();
+
+    }
+
+    private static void jugarAmigoInvisible() {
         //ingresar nombre participantes
         String[] participantes;
         Scanner teclado = new Scanner(System.in);
@@ -14,16 +22,28 @@ public class AmigoInvisible {
         participantes = new String[cantPersonas];
         List<String> listAux  = new ArrayList<>();
 
-        for(int i = 0; i<cantPersonas;i++){
+        cargaArrayJugadores(participantes, teclado, cantPersonas, listAux);
+
+        //cargamos a los agasajados
+        String[] agasajados = getAgasajados(participantes, cantPersonas, listAux);
+
+        //mostrar resultados
+        mostrarResultados(participantes, teclado, cantPersonas, agasajados);
+    }
+
+    private static void cargaArrayJugadores(String[] participantes, Scanner teclado, int cantPersonas, List<String> listAux) {
+        for(int i = 0; i< cantPersonas; i++){
             System.out.println("Participante " + (i + 1) + ": ");
             participantes[i] = teclado.next();
             listAux.add(participantes[i]);
         }
+    }
 
-        //cargamos a los agasajados
+    @NotNull
+    private static String[] getAgasajados(String[] participantes, int cantPersonas, List<String> listAux) {
         String [] agasajados = new String[cantPersonas];
         int ind = 0;
-        while(ind<cantPersonas){
+        while(ind< cantPersonas){
             Random rnd = new Random();
             int indiceRandom = rnd.nextInt(cantPersonas);
 
@@ -31,7 +51,7 @@ public class AmigoInvisible {
             if(!participantes[indiceRandom].equalsIgnoreCase(participantes[ind])){
                 //comprobamos que no se ha elegido antes
                 if(listAux.contains(participantes[indiceRandom])){
-                    agasajados[ind]=participantes[indiceRandom];
+                    agasajados[ind]= participantes[indiceRandom];
                     listAux.remove(participantes[indiceRandom]);
                     ind++;
 
@@ -44,8 +64,11 @@ public class AmigoInvisible {
 
             }
         }
+        return agasajados;
+    }
 
-        for(int i = 0; i<cantPersonas;i++){
+    private static void mostrarResultados(String[] participantes, Scanner teclado, int cantPersonas, String[] agasajados) {
+        for(int i = 0; i< cantPersonas; i++){
             System.out.println(participantes[i] + " que se acerque y pulsa una tecla y ENTER");
             teclado.next();
             System.out.print("La persona agasajada por tí es..." + agasajados[i] + "\n");
@@ -53,6 +76,5 @@ public class AmigoInvisible {
             teclado.next();
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         }
-
     }
 }
